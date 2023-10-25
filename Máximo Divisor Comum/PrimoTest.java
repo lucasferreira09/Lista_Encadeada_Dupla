@@ -4,8 +4,8 @@ public class PrimoTest
     {
         String mensagem = "CALCULANDO O MÁXIMO DIVISOR COMUM ENTRE";//Declara uma mensagem p/ início do App
         
-        //Coloque os números desejados em num1 e num2 (LOGO ABAIXO)
-        Primo PrimoTest1 = new Primo(12, 6);//Declara uma classe condutora juntamente com os valores
+        //Coloque os números desejados (LOGO ABAIXO)
+        Primo PrimoTest1 = new Primo(54, 7);//Declara uma classe condutora juntamente com os valores
 
         System.out.printf("%s %d e %d %n", mensagem, PrimoTest1.getNum1(), PrimoTest1.getNum2());//Exibe uma mensagem
         int nn1 = PrimoTest1.maxNum();//Atribui o MAIOR número a nn1

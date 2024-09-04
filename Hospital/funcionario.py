@@ -2,7 +2,12 @@ import json
 
 class Funcionario():
 
-    def cadastrar_funcionario(self, banco_dados, dados_cadastrado):
+    def salva_dados(self, banco_de_dados, dados):
+        with open(banco_de_dados, 'w') as file:
+            json.dump(dados, file, indent=4)
+
+
+    def cadastrar_funcionario(self, banco_de_dados):
         print("\n--- Cadastrando Funcionário ---")
         funcionario = {}
         nome = input("Informe o nome do Funcionário: ").title()
@@ -12,14 +17,14 @@ class Funcionario():
         funcionario["cpf"] = cpf
 
         try:
-            with open(banco_dados, 'r') as file:
+            with open(banco_de_dados, 'r') as file:
                 dados = json.load(file)
 
             if not dados:
                 dados["funcionarios"] = [funcionario]
-                with open(banco_dados, 'w') as file:
-                    json.dump(dados, file, indent=4)
-                    print("Funcionário {} Cadastrado com Sucesso!".format(nome).title())
+                self.salva_dados(banco_de_dados, dados)
+                
+                print("Funcionário {} Cadastrado com Sucesso!".format(nome).title())
 
             else:  #Caso não esteja vazio, é preciso verificar se já tem Funcionários no banco de dados
                 if "funcionarios" in dados:
@@ -30,15 +35,15 @@ class Funcionario():
 
                     else:  #Se não tiver, adicionamos
                         dados["funcionarios"].append(funcionario)
-                        with open(banco_dados, 'w') as file:
-                            json.dump(dados, file, indent=4)
-                            print("Funcionário {} Cadastrado com Sucesso!".format(nome).title())
+                        self.salva_dados(banco_de_dados, dados)
+                        
+                        print("Funcionário {} Cadastrado com Sucesso!".format(nome).title())
                     
                 else:  #Caso não tenha nem um Funcionários no banco de dados, criamos um
                     dados["funcionarios"] = [funcionario]
-                    with open(banco_dados, 'w') as file:
-                        json.dump(dados, file, indent=4)
-                        print("Funcionário {} Cadastrado com Sucesso!".format(nome).title())
+                    self.salva_dados(banco_de_dados, dados)
+                        
+                    print("Funcionário {} Cadastrado com Sucesso!".format(nome).title())
                 
         
         #Caso o arquivo Json não exista
@@ -46,10 +51,10 @@ class Funcionario():
             print("SEM BANCO DE DADOS!")
             print("Aguarde... Estamos Criando.")
 
-            with open(banco_dados, 'w') as file:
-                dados_cadastrado["funcionarios"] = [funcionario]
-                json.dump(dados_cadastrado, file, indent=4)
-                print("Paciente {} Cadastrado com Sucesso".format(nome).title())
+            novos_dados = {"funcionarios": [funcionario]}
+            self.salva_dados(banco_de_dados, novos_dados)
+
+            print("Paciente {} Cadastrado com Sucesso".format(nome).title())
         
 
         #Caso o arquivo Json exista, mas esteja totalmente vazio
@@ -58,9 +63,9 @@ class Funcionario():
             print("Aguarde... Estamos Criando.")
 
             novos_dados = {"funcionarios": [funcionario]}
-            with open(banco_dados, 'w') as file:
-                json.dump(novos_dados, file, indent=4)
-                print("Funcionário {} Cadastrado com Sucesso".format(nome).title())
+            self.salva_dados(banco_de_dados, novos_dados)
+            
+            print("Funcionário {} Cadastrado com Sucesso".format(nome).title())
 
 
 

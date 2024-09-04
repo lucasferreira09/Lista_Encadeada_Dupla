@@ -3,7 +3,7 @@ from paciente import*
 from funcionario import*
 from vacina import*
 
-banco_de_dados = 'banco_de_dados.json'
+banco_de_dados = 'Hospital/banco_de_dados.json'
 
 menu = Menu()
 paciente = Paciente()
@@ -90,6 +90,9 @@ while (True):
                         break
                     elif op_vacina == 4:
                         vacina.listar_registros(banco_de_dados)
+                        break
+                    elif op_vacina == 0:
+                        print("Saindo Menu Vacina")
                         break
                     else:
                         print("OPÇÃO INVÁLIDA!")

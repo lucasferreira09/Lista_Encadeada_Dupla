@@ -13,12 +13,11 @@ public class ListaEncadeadaDupla<T> {
 
         if (this.head == null) {
             this.head = node;
-            this.tail = node;
         } else {
             node.setAnterior(this.tail);
             this.tail.setProximo(node);
-            this.tail = node;
         }
+        this.tail = node;
         this.tamanho++;
     }
 
